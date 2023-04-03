@@ -26,6 +26,7 @@ func LawyerHandler(w http.ResponseWriter, r *http.Request) {
 			res.Code = -1
 			res.ErrorMsg = err.Error()
 		} else {
+			fmt.Println(body)
 			resp := ResponseMsg{
 				ToUserName:   fmt.Sprint(body["FromUserName"]),
 				FromUserName: fmt.Sprint(body["ToUserName"]),
@@ -41,7 +42,7 @@ func LawyerHandler(w http.ResponseWriter, r *http.Request) {
 		res.ErrorMsg = fmt.Sprintf("请求方法 %s 不支持", r.Method)
 	}
 
-	msg, err := json.Marshal(res)
+	msg, err := json.Marshal(res.Data)
 	if err != nil {
 		fmt.Fprint(w, "内部错误")
 		return
